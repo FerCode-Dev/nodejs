@@ -1,30 +1,32 @@
 import {sum} from './cjs/index.js'
-import {getFileStats} from './system/file-system.js'
+import {getFileStats} from './system/fs-stats.js'
 import {getOsInfo} from './system/info.js'
+import {readFile} from './system/fs-readFile.js'
+import {readTextFile} from './system/fs-readFile-promises.js'
 
 console.log(sum(2, 3))
 console.log(sum(8, 3))
 
-console.log('Información del sistema operativo:')
-console.log('-------------------')
+//callbacks
+console.log('Leyendo el primer archivo...')
+readFile('archivo.txt', (err, text) => {
+  if (err) {
+    console.error('Error leyendo archivo.txt:', err)
+    return
+  }
+  console.log('primer texto:', text)
+})
 
-const osInfo = getOsInfo()
+console.log('--> Hacer cosas mientras lee el archivo...')
 
-console.log('Nombre del sistema operativo:', osInfo.platform)
-console.log('Versión del sistema operativo:', osInfo.release)
-console.log('Arquitectura:', osInfo.arch)
-console.log('CPUs:', osInfo.cpus)
-console.log('Memoria libre (MB):', osInfo.freeMemoryMB)
-console.log('Memoria total (MB):', osInfo.totalMemoryMB)
-console.log('Uptime (horas):', osInfo.uptimeHours)
-
-const stats = getFileStats('archivo.txt')
-
-console.log(stats.isFile, stats.isDirectory, stats.isSymbolicLink, stats.size)
-
-console.log(osInfo.platform)
-console.log(osInfo.arch)
-console.log(osInfo.cpus)
+console.log('Leyendo el segundo archivo...')
+readFile('archivo2.txt', (err, text) => {
+  if (err) {
+    console.error('Error leyendo archivo2.txt:', err)
+    return
+  }
+  console.log('segundo texto:', text)
+})
 
 console.log('Node running 🚀')
 
