@@ -20,7 +20,6 @@ async function init() {
 
 init()
 
-// IIFE - Immediately Invoked Function Expression
 // ;(
 //   async () => {
 //     console.log('Leyendo el primer archivo...')
