@@ -1,20 +1,12 @@
 import {readFile} from 'node:fs/promises'
 import path from 'node:path'
 
-/* ===============================
-   LÓGICA
-   =============================== */
-
 export function readTextFile(fileName) {
   const __dirname = new URL('.', import.meta.url).pathname
   const filePath = path.join(__dirname, '..', fileName)
 
   return readFile(filePath, 'utf-8')
 }
-
-/* ===============================
-   EJECUCIÓN (MISMO ARCHIVO)
-   =============================== */
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   console.log('Leyendo el primer archivo...')
