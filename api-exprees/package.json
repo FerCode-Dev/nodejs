@@ -1,0 +1,23 @@
+{
+  "name": "api-exprees",
+  "version": "1.0.0",
+  "main": "http.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon http.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "standard": "^17.1.2"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  },
+  "description": ""
+}
