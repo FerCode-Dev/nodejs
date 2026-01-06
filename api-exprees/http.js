@@ -1,24 +1,35 @@
-// crear un servidor
 import http from 'node:http'
+import fs from 'node:fs'
 
 const desiredPort = process.env.PORT ?? 1234
-//calback funciones que se ejecutan despues que termine algo
-const server = http.createServer((req, res) => {
+
+const processRequest = (req, res) => {
+  res.setHeader('Content-Type', 'text/html; charset=utf-8')
+
   if (req.url === '/') {
-    res.statusCode = 200 //es ok
-    res.setHeader('Content-T', 'text/plain', 'charset=utf-8')
-    res.end('Bienvenido a mi pagina de inicio')
-  } else if (req.url === '/imagen/png') {
+    res.end('<h1>Mi página</h1>')
+  } else if (req.url === '/imagen-super-bonita.png') {
+    fs.readFile('./image.png', (err, data) => {
+      if (err) {
+        res.statusCode = 500
+        res.end('<h1>500 Internal Server Error</h1>')
+      } else {
+        res.setHeader('Content-Type', 'image/png')
+        res.end(data)
+      }
+    })
   } else if (req.url === '/contacto') {
-    res.statusCode = 200 //es ok
     res.end('<h1>Contacto</h1>')
   } else {
-    res.statusCode = 400 //es ok
+    res.statusCode = 404
     res.end('<h1>404</h1>')
   }
-})
+}
 
-// ⬅️ SOLO un listen
+// 👇 ESTA LÍNEA ES LA QUE TE FALTA
+const server = http.createServer(processRequest)
+
+// 👇 ahora sí existe `server`
 server.listen(desiredPort, () => {
-  console.log(`server listening on port http://localhost:${desiredPort}`)
+  console.log(`server listening on http://localhost:${desiredPort}`)
 })
